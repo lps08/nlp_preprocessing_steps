@@ -1,2 +1,2 @@
 # nlp_preprocessing_steps
-A nlp guito to how preprocessing text to nlp task
+A nlp guide to some text preprocessing to nlp task
