@@ -57,6 +57,12 @@ class NLPreprocessing():
 
         return freq.most_common(num_top_frequency)
 
+    def remove_unknown_words(text:str) -> str:
+        """
+            Removing unknown words <= 2 after removing stopwords
+        """
+        return " ".join([word for word in text.split() if len(word) > 2])
+
     @staticmethod
     def remove_freq_words(text:str, top_frequency_word:int = 10) -> str:
         """
@@ -68,17 +74,17 @@ class NLPreprocessing():
         return " ".join([word for word in text.split() if word not in freq_words])
 
     @staticmethod
-    def rare_words(text:str, top_rare_word:int = 10) -> str:
+    def remove_rare_words(text:str) -> str:
         """
             List of rare words
         """
 
-        freq_words = [word for (word, _) in NLPreprocessing.frequent_words(text=text, num_top_frequency=None)]
+        freq_words = [word for (word, freq) in NLPreprocessing.frequent_words(text=text, num_top_frequency=None) if freq == 1]
 
         # reversing top freq words to get all the rare one.
         rare_words = freq_words[::-1]
         
-        return " ".join([word for word in text.split() if word not in rare_words[:top_rare_word]])
+        return " ".join([word for word in text.split() if word not in rare_words])
 
     @staticmethod
     def steamming(text:str) -> str:
